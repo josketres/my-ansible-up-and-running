@@ -14,7 +14,9 @@
     domains:
       - 192.168.33.10.xip.io
       - www.192.168.33.10.xip.io
-    repo_url: git@github.com:lorin/mezzanine-example.git
+    #repo_url: git@github.com:lorin/mezzanine-example.git
+    #repo_url: https://github.com/lorin/mezzanine-example.git
+    repo_url: https://github.com/vinisbad/mezzanine-example.git
     gunicorn_port: 8000
     locale: en_US.UTF-8
     # Variables below don't appear in Mezannine's fabfile.py
@@ -137,7 +139,7 @@
 
   handlers:
     - name: restart supervisor
-      supervisorctl: name=gunicorn_mezzanine state=restarted
+      supervisorctl: name=gunicorn_{{ proj_name }} state=restarted
       sudo: True
     - name: restart nginx
       service: name=nginx state=restarted
