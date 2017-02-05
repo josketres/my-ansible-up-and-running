@@ -9,6 +9,19 @@
   tasks:
     - debug: msg="Var my_var is {{ my_var }}"
 
+    - name: Print some debug message with line folding
+      tags: line-folding
+      debug: >
+        msg="Var my_var is {{ my_var }}"
+
+    - name: Print some debug message with dictionary syntax
+      tags: dict-syntax
+      debug:
+        msg: "Var item is {{ item }}"
+      with_items:
+       - foo
+       - bar
+
     - name: capture output of whoami command
       command: id -un
       register: login
