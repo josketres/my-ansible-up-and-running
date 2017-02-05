@@ -1,0 +1,40 @@
+#!/usr/bin/env ansible-playbook
+---
+- name: Practice some variables stuff (chapter 4)
+  hosts: all
+  gather_facts: True
+  vars:
+    my_var: hello
+    greeting: "you didn't specify a message. Use the -e option of ansible-playbook."
+  tasks:
+    - debug: msg="Var my_var is {{ my_var }}"
+
+    - name: capture output of whoami command
+      command: id -un
+      register: login
+
+    - debug: var=login
+
+    - debug: msg="Logged in as user {{ login.stdout }}"
+
+    - name: Run myprog
+      command: /opt/myprog
+      register: result
+      ignore_errors: True
+
+    - debug: msg="Run myprog failed with error {{ result.msg }}"
+      when: result.failed
+
+    - debug: var=ansible_distribution
+
+    - name: capture output of whoami command 3
+      command: whoami
+      register: whoami_result
+
+    - set_fact: whoami={{ whoami_result.stdout }}
+
+    - debug: var=whoami
+
+    - debug: msg="Hostvars for vagrant1 {{ hostvars.vagrant1 }}"
+
+    - debug: msg="{{ greeting }}"
