@@ -22,6 +22,15 @@
        - foo
        - bar
 
+    - name: Example of local-action clause
+      local_action:
+        module: command
+        args: uname -a
+      register: uname_result
+      tags: local-action
+    - debug: var=uname_result.stdout
+      tags: local-action
+
     - name: capture output of whoami command
       command: id -un
       register: login
